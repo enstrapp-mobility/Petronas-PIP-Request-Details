@@ -1,0 +1,388 @@
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core"
+	xmlns:f="sap.ui.layout.form" xmlns:ta="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:plugins="sap.m.plugins"
+	controllerName="ZEMT_AM_PUR_APP.controller.Project_Update_Request_Main">
+	<App>
+		<pages>
+			<Page id="page" showHeader="false">
+				<content>
+					<OverflowToolbar class="homePageToolBar">
+						<Image src="./images/petronasLogo.png" class="logo"></Image>
+						<ToolbarSpacer />
+						<Label text="{i18n>ApplicationTitle}" class="headerText"></Label>
+						<ToolbarSpacer />
+						<Button icon="sap-icon://decline" text="{i18n>btn_Exit}"
+							press="ExitAction" class="buttonClass" type="Reject"></Button>
+						<Button icon="sap-icon://save" text="{i18n>btn_Save}"
+							id="Save_btn" press="on_Save" class="buttonClass" type="Accept"></Button>
+					</OverflowToolbar>
+				</content>
+				<IconTabBar id="Update_Tabbar"
+					class="sapUiResponsiveContentPadding" select="IconTabBarSelect">
+					<items>
+						<IconTabFilter design="Horizontal" 
+							icon="sap-icon://request" text="{i18n>NewRequest}"
+							key="{i18n>NewRequest}" tooltip="{i18n>NewRequest}"
+							class="MasterDataIconTabBar">
+							<f:SimpleForm editable="true"
+								layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3"
+								labelSpanM="3" labelSpanS="12" adjustLabelSpan="false"
+								emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="0"
+								columnsXL="2" columnsL="2" columnsM="2"
+								singleContainerFullSize="false">
+								<f:content>
+									<core:Title text="" class="remove-space" />
+									<Label text="{i18n>RequestId}" class="sapMLabelNoText" />
+									<Input value="$000000001" editable="false" id="RequestId" />
+									<Label text="{i18n>Year}" class="sapMLabelNoText" />
+									<Input editable="false" id="Year" />
+									<Label text="{i18n>FiAssetTitle}" required="true"
+										class="sapMLabelNoText" />
+									<Input id="AssetTitleId" maxLength="50">
+									</Input>
+									<Label text="{i18n>Name}" required="true"
+										class="sapMLabelNoText" />
+									<Input id="NameId" maxLength="50" visible="false">
+										<layoutData>
+											<l:GridData span="XL7 L7 M7 S10" />
+										</layoutData>
+									</Input>
+									<Button icon="sap-icon://sys-help" visible="false"
+										press="AssetNamePress">
+										<layoutData>
+											<l:GridData span="XL1 L1 M1 S2" />
+										</layoutData>
+									</Button>
+									<Label text="{i18n>Description}" class="sapMLabelNoText" />
+									<TextArea id="Description" rows="3.5" maxLength="250"
+										showExceededText="true" />
+									<core:Title text="" class="remove-space" />
+									<Label text="{i18n>RequestType}" class="sapMLabelNoText" />
+									<Select id="RequestTypeId" change="ChangeRequestType"
+										editable="false" >
+										<core:Item key="J" text="{i18n>ProjectUpdate}" />
+
+									</Select>
+									<Label text="{i18n>Status}" class="sapMLabelNoText" />
+									<Input id="Status" class="StatusClass" value="NEW"
+										editable="false">
+									</Input>
+									<Image src="" id="StatusIcon"
+										class="StatusIcon">
+									</Image>
+									<Label text="{i18n>CompanyCode}" 
+										required="true" class="sapMLabelNoText" />
+									<ComboBox id="CompanyCode"
+										 items="{/}">
+										<core:Item key="{Bukrs}" text="{Bukrs} - {Butxt}" />
+									</ComboBox>
+
+								</f:content>
+							</f:SimpleForm>
+						</IconTabFilter>
+
+
+
+
+
+						<IconTabFilter design="Horizontal" visible="true"
+							icon="sap-icon://write-new-document" id="ProjectUpdate_tab"
+							text="{i18n>ProjectUpdate}" key="{i18n>ProjectUpdate}"
+							tooltip="{i18n>ProjectUpdate}" class="MasterDataIconTabBar">
+							<ta:Table id="Project_Update_Request_Table"
+								selectionMode="MultiToggle" rows="{/}" filter="filterPrice"
+								sort="sortDeliveryDate" ariaLabelledBy="title">
+								<ta:extension>
+									<OverflowToolbar>
+									<Button icon="sap-icon://download"
+											tooltip="{i18n>ExcelDownload}" text="{i18n>ExcelDownload}"
+											press="onExport" class="buttonClass" type="Transparent"></Button>
+										<Button icon="sap-icon://excel-attachment"
+											visible="true" text="{i18n>ExcelUpload}" id="ExcelUpload_btn"
+											tooltip="{i18n>ExcelUpload}" press="ExcelUpdatePress"
+											class="buttonClass" type="Transparent"></Button>
+										<ToolbarSpacer />
+										<Button icon="sap-icon://add" text="{i18n>Add}"
+											visible="true" press="Add_Record" tooltip="{i18n>Add}"
+											type="Transparent" class="TransparentBtn" />
+										<Button icon="sap-icon://edit" text="{i18n>Edit}"
+											visible="true" press="Edit_Record"
+											tooltip="{i18n>btn_Refresh}" type="Transparent"
+											class="TransparentBtn" />
+
+										<Button icon="sap-icon://delete"
+											text="{i18n>btnDeleteRow}" visible="true"
+											press="Delete_Record" tooltip="{i18n>btnDeleteRow}"
+											type="Transparent" class="TransparentBtn" />
+
+										<Button icon="sap-icon://multi-select" text="Layout"
+											visible="false" press="AssetRequestsColumnsPopoverPress"
+											tooltip="Layout" type="Transparent" class="TransparentBtn" />
+
+										<Button icon="sap-icon://refresh" press="ReferehData" visible = "false"
+											text="{i18n>btn_Refresh}" tooltip="{i18n>btn_Refresh}"
+											type="Transparent" class="TransparentBtn" />
+
+										<Button icon="sap-icon://search" visible = "false"
+											text="{i18n>btn_Search}" press="Search_Records"
+											tooltip="Search" type="Transparent" class="TransparentBtn" />
+
+
+
+									</OverflowToolbar>
+								</ta:extension>
+								<ta:columns>
+									<ta:Column width="8rem">
+										<Label text="{i18n>Project}" design="Bold" />
+										<ta:template>
+											<Text text="{Pspid}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="7rem">
+										<Label text="{i18n>PIPAssetNumber}" design="Bold" />
+										<ta:template>
+											<Text text="{Anln1}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="8rem">
+										<Label text="{i18n>WbsNo}" design="Bold" />
+										<ta:template>
+											<Text text="{Posid}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="8rem">
+										<Label text="{i18n>ProjectCost}" design="Bold" />
+										<ta:template>
+											<Text text="{Prjcost}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="15rem">
+										<Label text="{i18n>ApprovedRevisedProjectCost}"
+											design="Bold" />
+										<ta:template>
+											<Text text="{Rprjcost}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="14rem" filterProperty="Bukrs"
+										sortProperty="Bukrs">
+										<Label text="{i18n>ApprovedBudgetforFY}" design="Bold" />
+										<ta:template>
+											<Text text="{Wert1}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="7rem">
+										<Label text="{i18n>PIPBalance}" design="Bold" />
+										<ta:template>
+											<Text text="{Answt}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="10rem">
+										<Label text="{i18n>YEP}" design="Bold" />
+										<ta:template>
+											<Text text="{Yepcost}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="10rem">
+										<Label text="{i18n>ReportingDate}" design="Bold" />
+										<ta:template>
+											<Text
+												text="{path: 'Repdate', formatter: 'ZEMT_AM_PUR_APP.Format.Formatter.formatddmmyyy'}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="10rem">
+										<Label text="{i18n>CompletionDate}" design="Bold" />
+										<ta:template>
+											<Text
+												text="{path: 'Compd', formatter: 'ZEMT_AM_PUR_APP.Format.Formatter.formatddmmyyy'}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="14rem">
+										<Label text="{i18n>RevisedCompletionDate}" design="Bold" />
+										<ta:template>
+											<Text
+												text="{path: 'Rcompd', formatter: 'ZEMT_AM_PUR_APP.Format.Formatter.formatddmmyyy'}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="9rem">
+										<Label text="{i18n>PercentageofCompletion(%)}"
+											design="Bold" />
+										<ta:template>
+											<Text text="{Prozs}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="7rem" filterProperty="Werk"
+										sortProperty="Werk">
+										<Label text="{i18n>Status}" design="Bold" />
+										<ta:template>
+											<Text text="{Pstatus}" />
+										</ta:template>
+									</ta:Column>
+
+									<ta:Column width="8rem">
+										<Label text="{i18n>Ageing}" design="Bold" />
+										<ta:template>
+											<Text text="{Dageing}" />
+										</ta:template>
+									</ta:Column>
+								</ta:columns>
+							</ta:Table>
+						</IconTabFilter>
+
+						<IconTabFilter design="Horizontal"
+							icon="sap-icon://newspaper" text="{i18n>Requestor}"
+							key="{i18n>Requestor}" tooltip="{i18n>Requestor}"
+							class="MasterDataIconTabBar">
+							<f:SimpleForm id="OtherInformationId"
+								editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"
+								labelSpanL="3" labelSpanM="4" labelSpanS="12"
+								adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+								emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2"
+								columnsM="2" singleContainerFullSize="false">
+								<f:content>
+									<core:Title text="" class="remove-space" />
+									<Label text="{i18n>CreatedBy}" class="sapMLabelNoText" />
+									<Input id="CreatedById" editable="false" />
+									<Label text="{i18n>CreatedOn}" class="sapMLabelNoText" />
+									<DatePicker displayFormat="dd-MMM-yyyy"
+										valueFormat="yyyy-MM-ddT00:00:00" id="CreatedOnId"
+										editable="false" />
+									<Label text="{i18n>StaffNo}" class="sapMLabelNoText" />
+									<Input id="StaffNoId" maxLength="10" visible="false" />
+									<Label text="{i18n>ChangedBy}" class="sapMLabelNoText" />
+									<Input editable="false" id="ChangedById" />
+									<Label text="{i18n>DateOfChanged}"
+										class="sapMLabelNoText" />
+									<DatePicker editable="false"
+										displayFormat="dd-MMM-yyyy" valueFormat="yyyy-MM-ddT00:00:00"
+										id="ChangedOnId" />
+								</f:content>
+							</f:SimpleForm>
+						</IconTabFilter>
+						<IconTabFilter design="Horizontal"
+							icon="sap-icon://accept" text="{i18n>Approver}"
+							key="{i18n>Approver}" tooltip="{i18n>Approver}"
+							class="MasterDataIconTabBar">
+							<f:SimpleForm id="SignOffformationId" visible = "false"
+								editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"
+								labelSpanL="3" labelSpanM="4" labelSpanS="12"
+								adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+								emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2"
+								columnsM="2" singleContainerFullSize="false">
+								<f:content>
+									<core:Title text="" class="remove-space" />
+									<Label text="{i18n>ApprovedBy}" class="sapMLabelNoText" />
+									<Input id="ASignOffpprovedById" editable="false" />
+									<Label text="{i18n>ApproverName}" class="sapMLabelNoText" />
+									<Input id="AppNameId" editable="false" />
+									<!-- <core:Title text="" class="remove-space" /> -->
+									<Label text="{i18n>ApprovedDate}" class="sapMLabelNoText" />
+									<DatePicker displayFormat="dd-MMM-yyyy"
+										valueFormat="yyyy-MM-ddT00:00:00" id="ApprovedById"
+										editable="false" />
+								</f:content>
+							</f:SimpleForm>
+								<Table id="approvertable_id" inset="false"
+								sticky="ColumnHeaders,HeaderToolbar" items="{/}">
+								<dependents>
+									<plugins:ColumnResizer />
+								</dependents>
+								<headerToolbar>
+									
+								</headerToolbar>
+
+								<columns>
+								<Column width="8em">
+										<Text text="{i18n>A_CompanyCode}" class = "BoldText"/>
+									</Column> 
+									
+									<Column width="8em">
+										<Text text="{i18n>A_CostCenter}" class = "BoldText"/>
+									</Column>
+									
+									<Column width="6em">
+										<Text text="{i18n>A_Plant}" class = "BoldText"/>
+									</Column>
+									
+									<Column width="6em">
+										<Text text="{i18n>A_Sequence}" class = "BoldText"/>
+									</Column>
+									
+									<Column width="10em">
+										<Text text="{i18n>A_Approver}" class = "BoldText"/>
+									</Column>
+									
+									<Column width="10em">
+										<Text text="{i18n>A_LvlName}" class = "BoldText"/>
+									</Column>
+									
+									<Column width="4.5em">
+										<Text text="{i18n>A_Active}" class = "BoldText"/>
+									</Column>
+									
+									<Column width="4em">
+										<Text text="{i18n>A_Edit}" class = "BoldText"/>
+									</Column>
+									
+									<Column width="6em" visible = "false">
+										<Text text="{i18n>A_Posting}" class = "BoldText"/>
+									</Column>
+									
+									<Column width="10em">
+										<Text text="{i18n>A_FirstName}" class = "BoldText"/>
+									</Column>
+									<Column width="10em">
+										<Text text="{i18n>A_LastName}" class = "BoldText"/>
+									</Column>
+									<Column width="8em" visible = "false">
+										<Text text="{i18n>A_EscUser}" class = "BoldText"/>
+									</Column>
+									
+									 
+								</columns>
+								<items>
+									<ColumnListItem vAlign="Middle">
+										<cells>
+										
+										<Text text="{Bukrs}" />
+										<Text text="{Kostl}" />
+										<Text text="{Werks}" />
+										<Text text="{Seq}" />
+										<Input  maxLength="8" value = "{Uname}" showValueHelp="true" valueHelpIconSrc="sap-icon://kpi-managing-my-area"  liveChange = "ApprTable_LiveChange"
+										valueHelpRequest="PersonnelInChargeValueHelp" enabled = "{path: 'Active', formatter: 'ZEMT_AM_PUR_APP.Format.Formatter.displayOnly'}"  />
+										<Input value="{Wflvlname}"  liveChange = "ApprTable_LiveChange" enabled = "{path: 'Active', formatter: 'ZEMT_AM_PUR_APP.Format.Formatter.displayOnly'}" />
+										<CheckBox selected="{path: 'Active', formatter: 'ZEMT_AM_PUR_APP.Format.Formatter.CheckBox'}"  displayOnly="true" valueState="Information"/>
+										<CheckBox selected="{path: 'Editm', formatter: 'ZEMT_AM_PUR_APP.Format.Formatter.CheckBox'}"  displayOnly="true" valueState="Information"/>
+										<CheckBox selected="{path: 'Spost', formatter: 'ZEMT_AM_PUR_APP.Format.Formatter.CheckBox'}"  displayOnly="true" valueState="Information"/>
+										<Text text="{McNamefir}" />
+										<Text text="{McNamelas}" />
+										<Text text="{Wfeuname}" />
+
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</IconTabFilter>
+					</items>
+				</IconTabBar>
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer />
+						<Button icon="sap-icon://curriculum"
+							text="{i18n>btnUpdateDocuments}" press="UpdateDocumentsPress"
+							class="buttonClass" type="Accept"></Button>
+						<Button icon="sap-icon://documents"
+							text="{i18n>btnViewDocuments}" press="ViewDocumentsPress"
+							type="Accept"></Button>
+						<Button icon="sap-icon://save"
+							text="{i18n>btnSubmitApproval}" id="Submit_btn"
+							press="SubmitValidation" type="Accept"></Button>
+					</OverflowToolbar>
+				</footer>
+				<DatePicker id="HiddenDP" hideInput="true"
+					showCurrentDateButton="true" showFooter="false"
+					valueFormat="dd-MMM-yyyy" change="changeDateHandler" />
+
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ResponsivePopover
+		id="myPopover"
+		showHeader="false"
+		class="sapUiContentPadding"
+		placement="Auto"
+		>
+		<content>
+			<Text text="{i18n>AssetName}" id="Poptext"></Text>
+		</content>
+	</ResponsivePopover>
+</core:FragmentDefinition>

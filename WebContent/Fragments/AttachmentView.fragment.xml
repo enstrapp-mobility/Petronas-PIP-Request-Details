@@ -1,0 +1,62 @@
+﻿<core:FragmentDefinition xmlns:core='sap.ui.core'
+	xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:u="sap.ui.unified">
+	
+	<Dialog xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+		xmlns:html="http://www.w3.org/1999/xhtml" contentWidth="75%"
+		contentHeight="75%" showHeader="Manage Attachment">
+		<OverflowToolbar class="homePageToolBar">
+			<ToolbarSpacer />
+			<Label text="{i18n>Attachments}" design="Bold"></Label>
+			<ToolbarSpacer />
+			<Button icon="sap-icon://decline" tooltip="Close" press="onAttachmentViewCancel"></Button>
+		</OverflowToolbar>
+		<content>
+			<Table id="AttachmentTabelView" 
+				showNoData="false" items="{/}" >
+				<!-- mode="Delete" delete="deleteRowAttachment" itemPress="AttachmentTabelPress" -->
+				<columns>
+					<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+						<header>
+							<Label text="{i18n>Name}" design="Bold" />
+						</header>
+					</Column>
+					<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+						<header>
+							<Label text="{i18n>DocumentType}" design="Bold" />
+						</header>
+					</Column>
+					<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true">
+						<header>
+							<Label text="{i18n>DocumentSize}" design="Bold" />
+						</header>
+					</Column>
+					<Column hAlign="Center" width="3rem" minScreenWidth="Tablet" demandPopin="true">
+						<header>
+							<Label text="" design="Bold" />
+						</header>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{Filename}" />
+							<Text text="{path: 'Filetype', formatter: 'ZEMT_AM_PUR_APP.Format.Formatter.fileType'}" />
+							<Text
+								text="{path: 'Fsize', formatter: 'ZEMT_AM_PUR_APP.Format.Formatter.fileSize'}" />
+							<core:Icon color ="blue" src="sap-icon://download" press="downloadDocuments"></core:Icon>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<!-- <beginButton>
+			<Button text="{i18n>btn_Save}" width="100px" id="butAttachmentSave" type="Accept"
+				press="onAttachmentSave" />
+		</beginButton> -->
+		<!-- <endButton>
+			<Button text="{i18n>btnCancel}" width="100px" id="butAttachmentCancel"
+				type="Reject" press="onAttachmentCancel" />
+		</endButton> -->
+	</Dialog>
+</core:FragmentDefinition>
