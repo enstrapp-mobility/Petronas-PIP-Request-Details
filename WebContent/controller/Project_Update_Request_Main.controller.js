@@ -75,6 +75,7 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 					Location_Model.iSizeLimit = 10000;
 					//Core.byId("VhCompanyCodeId").setModel(CompanyCode_Model);
 					Core.byId("VhPlantCodeId").setModel(Plants_Model);
+					Core.byId("Plants").setModel(Plants_Model);
 					Core.byId("VhCostCenterId").setModel(CostCenter_Model);
 					Core.byId("VhAssetClassId").setModel(AssetClass_Model);
 					Core.byId("VhLocationId").setModel(Location_Model);
@@ -151,9 +152,18 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 									view.byId("Status").setValue(AssetData[0].Rstatus);
 									view.byId("CompanyCode").setSelectedKey(AssetData[0].Bukrs);
 									var Longtext_arr = oData.results[0].EtLongtext.results;
+									view.byId("CreatedById").setValue(`${AssetData[0].Empid} ${AssetData[0].Empname}`);
+									view.byId("CreatedOnId").setValue(Core.formatter.formatddmmyyy(AssetData[0].Erdat));
+									view.byId("ChangedOnId").setValue(Core.formatter.formatddmmyyy(AssetData[0].Aedat));
+									view.byId("ChangedById").setValue(AssetData[0].Aenam);
 									if(Longtext_arr.length > 0) {
-										view.byId("Description").setValue(oData.results[0].EtLongtext.results[0].Tdline);
+										var description = '';
+										for(var i = 0; i < Longtext_arr.length; i++) {
+											description += Longtext_arr[i].Tdline + "\n"
+										}
+										view.byId("Description").setValue(description);
 									}
+									
 									var Etwflogr_arr = oData.results[0].EtWflogr.results;
 									var EtArni_Arr = oData.results[0].EtAtrni.results;
 									if(Etwflogr_arr.length != 0) {
@@ -352,7 +362,7 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 				var obj = {
 						"Pspid": Data[i].Pspid,
 						"Posid": Data[i].Posid,
-						"Bukrs": Data[i].Bukrs,
+						"Bukrs":  CompanyCode,//Data[i].Bukrs,
 						"Anln1": Data[i].Anln1,
 						"Anln2": Data[i].Anln2,
 						"Prjcost": Data[i].Prjcost,
@@ -367,6 +377,7 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 						"Pstatus": Data[i].Pstatus,
 						"Dageing": Data[i].Dageing.toString(),
 						"Waers": Data[i].Waers,
+						"Werks": Data[i].Werks,
 					//	"Action": Data[i].Action,
 					}
 					Update_Request_Data.push(obj);
@@ -660,16 +671,6 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 					var RequestId = oData.EtMessage.results[0].EvAtrnid;
 					var Resp_Error = oData.EtMessage.results[0].EvError;
 					var title;
-					// Read success or Error From Odata Response
-					/*var Resp_Error = true;
-					var title;
-					if(oData.EtMessage.results.length > 1) {
-						oData.EtMessage.results.find(function(x, i) {
-							if(oData.EtMessage.results[i].Message.slice(0, 1) == "S") {
-								return Resp_Error = false;
-							}
-						})
-					}*/
 					// Set Title Based on Flag
 					if(Resp_Error == true) {
 						title = Core.i18n.getText("Error");
@@ -1464,7 +1465,7 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 			} else {
 				var AssetTableData = AssetTable.getContextByIndex(AssetTable.getSelectedIndices()[0]).getObject();
 				if(Core.F4_Update_Request.isOpen() == true) {
-					Core.byId("SubAsset_id").setText(AssetTableData.Anln2);
+					Core.byId("SubAsset_id").setValue(AssetTableData.Anln2);
 					Core.byId("CostCenter_id").setText(AssetTableData.Bukrs);
 					Core.byId("pip_asset_f4").setValue(AssetTableData.Anln1);
 					Core.byId("pipbalance_f4").setValue(AssetTableData.Netbv);
@@ -1915,6 +1916,10 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 				} else if(Core.opened_Input == 'wbsNo_f4') {
 					Core.byId("wbsNo_f4").setValue(Data.Posid);
 					Core.byId("ProjectNo_f4").setValue(Data.Pspid);
+					Core.byId("CompletionDate_f4").setValue(Core.formatter.formatddmmyyy(Data.Plsez));
+					Core.byId("pipbalance_f4").setValue(Data.Answt);
+					Core.byId("pip_asset_f4").setValue(Data.Anln1);
+					Core.byId("SubAsset_id").setValue(Data.Anln2);
 				} else if(Core.opened_Input == 'ProjectNo_f4') {
 					Core.byId("wbsNo_f4").setValue(Data.Posid);
 					Core.byId("ProjectNo_f4").setValue(Data.Pspid);
@@ -1974,8 +1979,8 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 			var Status = F4_view.byId("Status_f4").getValue();
 			var Ageing = F4_view.byId("Ageing_f4").getValue();
 			var Cost_Center = F4_view.byId("CostCenter_id").getText();
-			var Sub_Asset = F4_view.byId("SubAsset_id").getText();
-			Ageing = this.Calculate_Ageing(CompletionDate,ReportingDate);
+			var Sub_Asset = F4_view.byId("SubAsset_id").getValue();
+			Ageing = CompletionDate != "" && CompletionDate != "" ? this.Calculate_Ageing(CompletionDate,ReportingDate) : "";
 			/*d1 = this.Format_Date(CompletionDate);
 			d2 = this.Format_Date(ReportingDate);
 			Ageing = new Date(+d1.slice(0,4),+d1.slice(4,2),+d1.slice(6,8)).getTime() - new Date(+d2.slice(0,4),+d2.slice(4,2),+d2.slice(6,8)).getTime() / 86400000;*/
@@ -1998,7 +2003,10 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 			} else if(RevisedCompletionDate === "") {
 				MessageBox.warning(Core.i18n.getText("EnterRevisedCompletionDate"));
 				return false;
-			} else if(Number(PercentCompletion) > 100) {
+			} else if(PercentCompletion == '') {
+				MessageBox.warning(Core.i18n.getText("EnterPercentCompletion"));
+				return false;
+			}  else if(Number(PercentCompletion) > 100) {
 				MessageBox.warning(Core.i18n.getText("PercentageCannotgreater100"));
 				return false;
 			} else if(Status === "") {
@@ -2044,8 +2052,9 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 			var Status = F4_view.byId("Status_f4").getValue();
 			var Ageing = F4_view.byId("Ageing_f4").getValue();
 			var Cost_Center = F4_view.byId("CostCenter_id").getText();
-			var Sub_Asset = F4_view.byId("SubAsset_id").getText();
-			Ageing = this.Calculate_Ageing(CompletionDate,ReportingDate);
+			var Sub_Asset = F4_view.byId("SubAsset_id").getValue();
+			var Plant = F4_view.byId("Plants").getSelectedKey();
+			Ageing = CompletionDate != "" && CompletionDate != "" ? this.Calculate_Ageing(CompletionDate,ReportingDate) : "";
 			Ageing = Ageing.replace('-','');
 			if(ProjectNo == "") {
 				MessageBox.information(Core.i18n.getText("ProjectNoMandatoryTxt"));
@@ -2064,6 +2073,9 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 				return false;
 			} else if(RevisedCompletionDate === "") {
 				MessageBox.warning(Core.i18n.getText("EnterRevisedCompletionDate"));
+				return false;
+			} else if(PercentCompletion == '') {
+				MessageBox.warning(Core.i18n.getText("EnterPercentCompletion"));
 				return false;
 			} else if(Number(PercentCompletion) > 100) {
 				MessageBox.warning(Core.i18n.getText("PercentageCannotgreater100"));
@@ -2089,7 +2101,8 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 				Prozs: PercentCompletion,
 				Pstatus: Status,
 				Dageing: Ageing,
-				Action : "I"
+				Action : "I",
+				Werks : Plant
 			};
 			var Arr = [];
 			Arr.push(obj);
@@ -2121,7 +2134,8 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 			F4_view.byId("Status_f4").setValue();
 			F4_view.byId("Ageing_f4").setValue();
 			F4_view.byId("CostCenter_id").setText();
-			F4_view.byId("SubAsset_id").setText();
+			F4_view.byId("SubAsset_id").setValue();
+			F4_view.byId("Plants").setValue();
 		},
 		// Close Proj Comp F4
 		UpdateRequest_Close: function() {
@@ -2192,7 +2206,8 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 			F4_view.byId("Status_f4").setValue(obj.Pstatus);
 			F4_view.byId("Ageing_f4").setValue(obj.Dageing);
 			F4_view.byId("CostCenter_id").setText(obj.Bukrs);
-			F4_view.byId("SubAsset_id").setText(obj.Anln2);
+			F4_view.byId("SubAsset_id").setValue(obj.Anln2);
+			F4_view.byId("Plants").setSelectedKey(obj.Werks);
 		},
 		Delete_Record: function() {
 			var _Model = this.getView().byId("Project_Update_Request_Table");
@@ -2324,6 +2339,7 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 						var ExcelData = excelData[i];
 						obj.Pspid = ExcelData['Project No'];
 						obj.Anln1 = ExcelData['PIP Asset No'];
+						obj.Anln2 = ExcelData['PIP Sub Asset No'];
 						obj.Posid = ExcelData['WBS No'];
 						obj.Prjcost = ExcelData['Project Cost'];
 						obj.Rprjcost = ExcelData['Approved Revised Project Cost'];
@@ -2336,11 +2352,12 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 						obj.Prozs = ExcelData['% Cost Allocation'];
 						obj.Pstatus = ExcelData['Status'];
 						obj.Dageing = ExcelData['Ageing'];
+						obj.Werks = ExcelData['Plant Code'];
 						obj.Action = "I";
 						obj.Bukrs = "";
-						obj.Anln2 = "";
 						obj.Pspid != undefined ? obj.Pspid = unescape(obj.Pspid) : obj.Pspid = "";
 						obj.Anln1 != undefined ? obj.Anln1 = unescape(obj.Anln1) : obj.Anln1 = "";
+						obj.Anln2 != undefined ? obj.Anln2 = unescape(obj.Anln2) : obj.Anln2 = "";
 						obj.Posid != undefined ? obj.Posid = unescape(obj.Posid) : obj.Posid = "";
 						obj.Prjcost != undefined ? obj.Prjcost = unescape(obj.Prjcost) : obj.Prjcost = "";
 						obj.Rprjcost != undefined ? obj.Rprjcost = unescape(obj.Rprjcost) : obj.Rprjcost = "";
@@ -2353,6 +2370,7 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 						obj.Prozs != undefined ? obj.Prozs = unescape(obj.Prozs) : obj.Prozs = "";
 						obj.Pstatus != undefined ? obj.Pstatus = unescape(obj.Pstatus) : obj.Pstatus = "";
 						obj.Dageing != undefined ? obj.Dageing = unescape(obj.Dageing) : obj.Dageing = "";
+						obj.Werks != undefined ? obj.Werks = unescape(obj.Werks) : obj.Werks = "";
 						excel_arr.push(obj);
 					}
 					/*var is_Model_exist = Core.that.getView().byId("Project_Update_Request_Table").getModel();
@@ -2388,16 +2406,28 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 				width: 8
 			});
 			aCols.push({
+				label: 'WBS No',
+				property: 'Posid',
+				type: EdmType.String,
+				width: 8
+			});
+			aCols.push({
 				label: 'PIP Asset No',
 				property: 'Anln1',
 				type: EdmType.String,
 				width: 7
 			});
 			aCols.push({
-				label: 'WBS No',
-				property: 'Posid',
+				label: 'PIP Sub Asset No',
+				property: 'Anln2',
 				type: EdmType.String,
-				width: 8
+				width: 10
+			});
+			aCols.push({
+				label: 'Plant Code',
+				property: 'Werks',
+				type: EdmType.String,
+				width: 7
 			});
 			aCols.push({
 				label: 'Project Cost',
@@ -2405,6 +2435,7 @@ sap.ui.define(["ZEMT_AM_PUR_APP/controller/BaseController", "ZEMT_AM_PUR_APP/For
 				type: EdmType.String,
 				width: 8
 			});
+			
 			aCols.push({
 				label: 'Approved Revised Project Cost',
 				property: 'Rprjcost',

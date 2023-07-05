@@ -295,8 +295,9 @@ html.sap-desktop .sapContrast.sapMIBar.sapMFooter-CTX {
     }
 }
 .sapMInputBaseInner:focus {
-	 border-style: none !important;
-     border: 1px solid blue !important;
+ 	outline : none !important;
+	 outline-width :0  !important;
+     border : 2px solid #0070f2 !important;
 }
 .sapMColumnHeader{
 	   

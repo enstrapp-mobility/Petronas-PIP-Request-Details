@@ -138,16 +138,28 @@
 											<Text text="{Pspid}" />
 										</ta:template>
 									</ta:Column>
+									<ta:Column width="8rem">
+										<Label text="{i18n>WbsNo}" design="Bold" />
+										<ta:template>
+											<Text text="{Posid}" />
+										</ta:template>
+									</ta:Column>
 									<ta:Column width="7rem">
 										<Label text="{i18n>PIPAssetNumber}" design="Bold" />
 										<ta:template>
 											<Text text="{Anln1}" />
 										</ta:template>
 									</ta:Column>
-									<ta:Column width="8rem">
-										<Label text="{i18n>WbsNo}" design="Bold" />
+									<ta:Column width="10rem">
+										<Label text="{i18n>PIPSubAssetNumber}" design="Bold" />
 										<ta:template>
-											<Text text="{Posid}" />
+											<Text text="{Anln2}" />
+										</ta:template>
+									</ta:Column>
+									<ta:Column width="7rem">
+										<Label text="{i18n>Planningplant}" design="Bold" />
+										<ta:template>
+											<Text text="{Werks}" />
 										</ta:template>
 									</ta:Column>
 									<ta:Column width="8rem">
