@@ -1,0 +1,60 @@
+<core:FragmentDefinition xmlns:core='sap.ui.core' xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified"
+	xmlns:ta="sap.ui.table">
+	<Dialog contentHeight="100%" contentWidth="100%" showHeader="false" beforeOpen = "Clear_UserData">
+		<OverflowToolbar class="FragmentToolBar">
+			<ToolbarSpacer/>
+			<Label text="{i18n>ApproverList}" id = "SearchUsertitle"></Label>
+			<ToolbarSpacer/>
+			<Button icon="sap-icon://decline" tooltip="Close" class="btnMaterialSearchClose" press="Close_UserSearch" type="Reject"></Button>
+		</OverflowToolbar>
+		<Panel headerText="{i18n>SearchUser}" id="SearchUserPanel" expandable="true" expanded="true" visible = "false">
+			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12"
+				adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+				singleContainerFullSize="false">
+				<f:content>
+					<Label text="{i18n>Username}" class="sapMLabelNoText"/>
+					<Input id="username_id" maxLength="10"></Input>
+					<Label text="{i18n>FirstName}" class="sapMLabelNoText"/>
+					<Input id="firstname" maxLength="30"/>
+					<Label text="{i18n>LastName}" class="sapMLabelNoText"/>
+					<Input id="lastname" maxLength="30"/>
+				</f:content>
+			</f:SimpleForm>
+			<HBox justifyContent="Center" width="100%">
+				<Button text="{i18n>btnClear}" press="Clear_UserData" id = "Clear_User" type="Reject" icon="sap-icon://detail-view" class="sapUiSmallMarginEnd"></Button>
+				<Button text="{i18n>btnGetData}" press="Serach_User" type="Emphasized" icon="sap-icon://detail-view"></Button>
+			</HBox>
+		</Panel>
+		<Panel id="UsertablePanel" >
+			<ta:Table id="Users_table_id" selectionMode="Single" rows="{/}" ariaLabelledBy="title">
+				<ta:extension>
+				</ta:extension>
+				<ta:columns>
+					<ta:Column>
+						
+						<Label text="{i18n>Username}" tooltip="{i18n>Username}" design="Bold"/>
+						<ta:template>
+							<Text text="{Uname}"/>
+						</ta:template>
+					</ta:Column>
+					<ta:Column>
+						<Label text="{i18n>FirstName}" tooltip="{i18n>FirstName}" design="Bold"/>
+						<ta:template>
+							<Text text="{Vnamc}"/>
+						</ta:template>
+					</ta:Column>
+					<ta:Column>
+						<Label text="{i18n>LastName}" tooltip="{i18n>LastName}" design="Bold"/>
+						<ta:template>
+							<Text text="{Nchmc}"/>
+						</ta:template>
+					</ta:Column>
+				</ta:columns>
+			</ta:Table>
+		</Panel>
+		<endButton>
+			<Button text="{i18n>AddUser}"  icon="sap-icon://add" type="Accept" press="Add_User"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

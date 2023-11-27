@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog id="selct_CostCenter_list" title="{i18n>CostCenter}" search="onCostCenter_Search" liveChange="onCostCenter_Search" confirm="onCostCenter_DialogClose"
+		cancel="onCostCenter_DialogClose" items="{/}" growingThreshold = "150" contentWidth = "35%">
+		<StandardListItem title="{Customfield}"  iconDensityAware="false" iconInset="false" type="Active" id = "View_CostCenter" class = "StandardListItemcss SapUiTinyMargin"/>
+	</SelectDialog>
+</core:FragmentDefinition>
