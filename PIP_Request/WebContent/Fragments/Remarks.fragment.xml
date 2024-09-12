@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+
+	<Dialog class="sapUiContentPadding">
+		<customHeader>
+			<OverflowToolbar class="FragmentToolBar">
+				<ToolbarSpacer />
+				<Label text="{i18n>EnterRemarks}"></Label>
+				<ToolbarSpacer />
+				<Button icon="sap-icon://accept" tooltip="Accept"
+					type="Accept" press="ApprovePress" />
+				<Button icon="sap-icon://decline" tooltip="Reject"
+					class="btnMaterialSearchClose" press="RemarksClose" type="Reject"></Button>
+			</OverflowToolbar>
+		</customHeader>
+		<content>
+			<TextArea id="RemarksId" rows="4" maxLength="70" width = "100%"
+				showExceededText="false" />
+		</content>
+		<!-- <endButton> </endButton> -->
+	</Dialog>
+</core:FragmentDefinition>

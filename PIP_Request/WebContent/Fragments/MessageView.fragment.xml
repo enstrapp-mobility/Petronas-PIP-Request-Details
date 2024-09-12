@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Dialog class="sapUiContentPadding">
+		<customHeader>
+			<OverflowToolbar class="FragmentToolBar">
+				<ToolbarSpacer />
+				<core:Icon id="Msg_icon" size="1.4em" class="size1"
+					color="#ffffff">
+					<core:layoutData>
+						<FlexItemData growFactor="1" />
+					</core:layoutData>
+				</core:Icon>
+				<Label text="" id="MessageViewTitleId"
+					class="headerText"></Label>
+				<ToolbarSpacer />
+				<Button tooltip="Ok" text="OK" class="btnMaterialSearchClose"
+					press="OkClose" type="Accept"></Button>
+			</OverflowToolbar>
+		</customHeader>
+		<content>
+			<List id="MessaheViewListId" items="{/}">
+				<FeedListItem showIcon="false" text="{text}">
+				</FeedListItem>
+			</List>
+		</content>
+		<!-- <endButton> </endButton> -->
+	</Dialog>
+</core:FragmentDefinition>
