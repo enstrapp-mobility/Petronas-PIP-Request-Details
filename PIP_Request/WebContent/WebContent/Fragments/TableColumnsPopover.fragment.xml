@@ -1,0 +1,31 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	
+	<Popover
+		showHeader="false"
+		contentWidth="320px"
+		contentHeight="500px"
+		placement="Bottom"
+		ariaLabelledBy="master-title">
+		<NavContainer>
+			<Page
+				class="sapUiResponsivePadding--header" title="{i18n>ColumnsSelection}">
+				<SearchField 
+							placeholder="Filter"
+							liveChange="ColumnsSelectionSearch"
+							/>
+				<List
+					mode="MultiSelect"
+					id="TableColumnsList"
+					select="NewAssetColumnsSelection"
+					items="{/}" >
+					<StandardListItem
+						title="{text}"
+						type="Active"
+						/>
+				</List>
+			</Page>
+		</NavContainer>
+	</Popover>
+</core:FragmentDefinition>

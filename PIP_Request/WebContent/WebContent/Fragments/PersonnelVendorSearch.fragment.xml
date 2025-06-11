@@ -1,0 +1,106 @@
+<core:FragmentDefinition xmlns:core='sap.ui.core'
+	xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:ta="sap.ui.table">
+	<Dialog contentHeight="100%" contentWidth="100%" showHeader="false">
+		<OverflowToolbar class="FragmentToolBar">
+			<ToolbarSpacer />
+			<Label text="{i18n>SearchVendorTitle}" id="VendorTitleId"
+				></Label>
+			<ToolbarSpacer />
+			<Button icon="sap-icon://decline" tooltip="Close"
+				class="btnMaterialSearchClose" press="VendorClose" type="Reject"></Button>
+		</OverflowToolbar>
+		<Panel headerText="{i18n>VendorSearchPage}" id="VendorSearchPageId"
+			expandable="true" expanded="true">
+			<f:SimpleForm editable="true" layout="ResponsiveGridLayout"
+				labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12"
+				adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0"
+				emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+				singleContainerFullSize="false">
+				<f:content>
+					<!-- <core:Title text="" class="remove-space" /> -->
+					<Label text="{i18n>CompanyCode}" required="true" class="sapMLabelNoText" />
+					<ComboBox id="VendorCompanyCode" items="{/}">
+						<core:Item key="{Bukrs}" text="{Bukrs} - {Butxt}" />
+					</ComboBox>
+					<Label text="{i18n>Vendor}" class="sapMLabelNoText" />
+					<Input id="VendorNoId" maxLength="10"></Input>
+					<Label text="{i18n>VendorName}" class="sapMLabelNoText" />
+					<Input id="VendorNameId" maxLength="30" />
+					<Label text="{i18n>PersonnelNo}" class="sapMLabelNoText" />
+					<Input id="VendorPersonnelNoId" maxLength="10"></Input>
+					<Label text="{i18n>FirstName}" class="sapMLabelNoText" />
+					<Input id="VendorFirstNameId" maxLength="30" />
+					<Label text="{i18n>LastName}" class="sapMLabelNoText" />
+					<Input id="VendorLastNameId" maxLength="30" />
+				</f:content>
+			</f:SimpleForm>
+			<HBox justifyContent="Center" width="100%">
+				<Button text="{i18n>btnClear}" press="ClearVendorPress" type="Reject"
+					icon="sap-icon://detail-view" class="sapUiSmallMarginEnd"></Button>
+				<Button text="{i18n>btnGetData}" press="GetVendorPress" type="Emphasized"
+					icon="sap-icon://detail-view"></Button>
+			</HBox>
+		</Panel>
+		<Panel id="VendorTabelPanelId">
+		
+		
+			<ta:Table id="VendorTableId" selectionMode="Single" rows="{/}"
+				ariaLabelledBy="title" >
+				<ta:extension>
+					<!-- <OverflowToolbar>
+						<SearchField placeholder="Search" liveChange="VendorLiveSearch"
+							width="25rem" />
+						<ToolbarSpacer />
+					</OverflowToolbar> -->
+				</ta:extension>
+				<ta:columns>
+					<ta:Column>
+						<Label text="{i18n>CompanyCode}" tooltip="{i18n>CompanyCode}"
+							design="Bold" />
+						<ta:template>
+							<Text text="{Bukrs}" />
+						</ta:template>
+					</ta:Column>
+					<ta:Column>
+						<Label text="{i18n>Vendor}" tooltip="{i18n>Vendor}" design="Bold" />
+						<ta:template>
+							<Text text="{Lifnr}" />
+						</ta:template>
+					</ta:Column>
+					<ta:Column>
+						<Label text="{i18n>VendorName}" tooltip="{i18n>VendorName}"
+							design="Bold" />
+						<ta:template>
+							<Text text="{Mcod1}" />
+						</ta:template>
+					</ta:Column>
+					<ta:Column>
+						<Label text="{i18n>PersonnelNo}" tooltip="{i18n>PersonnelNo}"
+							design="Bold" />
+						<ta:template>
+							<Text text="{Pernr}" />
+						</ta:template>
+					</ta:Column>
+					<ta:Column>
+						<Label text="{i18n>FirstName}" tooltip="{i18n>FirstName}"
+							design="Bold" />
+						<ta:template>
+							<Text text="{Vnamc}" />
+						</ta:template>
+					</ta:Column>
+					<ta:Column>
+						<Label text="{i18n>LastName}" tooltip="{i18n>LastName}"
+							design="Bold" />
+						<ta:template>
+							<Text text="{Nchmc}" />
+						</ta:template>
+					</ta:Column>
+				</ta:columns>
+			</ta:Table>
+		</Panel>
+		<endButton> <Button text="{i18n>AddVendorBtn}" id="AddVendorBtnId" icon="sap-icon://add"
+			type="Accept" press="Addvendor" /> </endButton>
+	</Dialog>
+</core:FragmentDefinition>
