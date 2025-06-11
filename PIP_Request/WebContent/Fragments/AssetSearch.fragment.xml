@@ -1,0 +1,199 @@
+<core:FragmentDefinition xmlns:core='sap.ui.core'
+	xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:ta="sap.ui.table" >
+	<Dialog contentHeight="100%" contentWidth="100%" showHeader="false" beforeOpen = "Clear_AssetSearch">
+		<OverflowToolbar class="FragmentToolBar">
+			<ToolbarSpacer />
+			<Label text="{i18n>AssetSearchTitle}" id="AssetSearchTitleId" class="headerText"></Label>
+			<ToolbarSpacer />
+			<Button icon="sap-icon://decline" tooltip="Close" press="AssetSearchClose"
+				type="Reject"></Button>
+		</OverflowToolbar>
+		<Panel headerText="{i18n>AssetDataSearch}" id="AssetSearchPage"
+			expandable="true" expanded="true">
+			<f:SimpleForm editable="true" layout="ResponsiveGridLayout"
+				labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12"
+				adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0"
+				emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+				singleContainerFullSize="false">
+				<f:content>
+					<core:Title text="" class="remove-space" />
+					<Label required="true" text="{i18n>CompanyCode}" class="sapMLabelNoText" />
+					<ComboBox id="VhCompanyCodeId" change="VhCompanyCodeChange"
+						items="{/}">
+						<core:Item key="{Bukrs}" text="{Bukrs} - {Butxt}" />
+					</ComboBox>
+					<Label text="{i18n>Planningplant}" class="sapMLabelNoText" />
+					<ComboBox id="VhPlantCodeId" items="{/}" change="VhPlantCodeChange">
+						<core:Item key="{Werks}" text="{Werks} - {Name1}" />
+					</ComboBox>
+					<Label text="{i18n>CostCenter}" class="sapMLabelNoText" />
+					<Input id="VhCostCenterId" visible="true" showValueHelp="true" valueHelpOnly="true" valueHelpIconSrc="sap-icon://slim-arrow-down"
+						showSuggestion="true" suggestionItems = "{/}" valueHelpRequest="onCostCenter_ValueHelpRequest" change="VhCompanyCodeEmptyCheck">
+						<suggestionItems>
+							<core:ListItem text="{Kostl} - {Ktext}" key = "{Kostl}"/>
+						</suggestionItems>
+					</Input>
+					<Label text="{i18n>WBSNo}" class="sapMLabelNoText"/>
+					<Input id="WBS_No_f4" maxLength="24"/>
+					<Label text="{i18n>InventoryNo}" class="sapMLabelNoText"/>
+					<Input id="InventoryNo_f4" maxLength="25" />
+					<!-- <ComboBox id="VhCostCenterId" items="{/}" change="VhCompanyCodeEmptyCheck">
+						<core:Item key="{Kostl}" text="{Kostl} - {Ktext}" />
+					</ComboBox> -->
+					<core:Title text="" class="remove-space" />
+					<Label required="false" text="{i18n>AssetClass}" class="sapMLabelNoText" />
+					<ComboBox id="VhAssetClassId" change="VhCompanyCodeEmptyCheck"
+						items="{/}">
+						<core:Item key="{Anlkl}" text="{Anlkl} - {Txk50}" />
+					</ComboBox>
+					<Label text="{i18n>Location}" class="sapMLabelNoText" />
+					<ComboBox id="VhLocationId" items="{/}" change="VhLocationChange">
+						<core:Item key="{Stand}" text="{Werks} - {Stand} - {Ktext}" />
+					</ComboBox>
+					<Label text="{i18n>AssetName}" class="sapMLabelNoText" />
+					<Input id="VhAssetNameId" maxLength="50"></Input>
+					<Label text="{i18n>Asset}" class="sapMLabelNoText" />
+					<Input id="Asset_No_f4" maxLength="12"
+						liveChange="Numeric_Only_Livechange"></Input>
+					<Label text="{i18n>SerialNumber}" class="sapMLabelNoText"/>
+					<Input id="SerialNumber_f4" maxLength="18" />
+				</f:content>
+			</f:SimpleForm>
+			<HBox justifyContent="Center" width="100%">
+				<Button text="{i18n>btnClear}" press="Clear_AssetSearch" type="Reject"
+					icon="sap-icon://detail-view" class="sapUiSmallMarginEnd"></Button>
+				<!-- <Text text="-" class="textColor"></Text> -->
+				<Button text="{i18n>btnGetData}" press="AssetBtnPress" type="Emphasized"
+					icon="sap-icon://detail-view"></Button>
+			</HBox>
+		</Panel>
+		<Panel id="AssetTabelPanelId">
+		<ta:Table class = "SearchTable"
+				id="AssetTableId"
+				selectionMode="Single"
+				rows="{/}"
+				ariaLabelledBy="title">
+				<ta:extension>
+					<OverflowToolbar>
+						<SearchField
+							placeholder="Search"
+							liveChange="AssetLiveSearch"
+							width="25rem"/>
+							<ToolbarSpacer/>
+							<Button icon="sap-icon://add" text="{i18n>btnAdd}"
+							press="AddAssetPress" type="Accept"></Button>
+					</OverflowToolbar>
+				</ta:extension>
+				 <ta:columns>
+				 <ta:Column width="8rem" >
+						<Label text="{i18n>CompanyCode}" tooltip="{i18n>CompanyCode}" design="Bold"/>
+						<ta:template >
+							<Text text="{Bukrs}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="11rem" >
+						<Label text="{i18n>Asset}" tooltip="{i18n>Asset}" design="Bold"/>
+						<ta:template >
+							<Text text="{Anln1}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="6rem" >
+						<Label text="{i18n>SubAsset}" tooltip="{i18n>SubAsset}" design="Bold"/>
+						<ta:template >
+							<Text text="{Anln2}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="11rem" >
+						<Label text="{i18n>Name}" tooltip="{i18n>Name}" design="Bold"/>
+						<ta:template >
+							<Text text="{Txt50}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="7rem" >
+						<Label text="{i18n>AssetClass}" tooltip="{i18n>AssetClass}" design="Bold"/>
+						<ta:template >
+							<Text text="{Anlkl}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="6rem" >
+						<Label text="{i18n>Quantity}" tooltip="{i18n>Quantity}" design="Bold"/>
+						<ta:template >
+							<Text text="{Menge}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="4rem" >
+						<Label text="{i18n>Unit}" tooltip="{i18n>Unit}" design="Bold"/>
+						<ta:template >
+							<Text text="{Meins}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="6.5rem" >
+						<Label text="{i18n>CostCenter}" tooltip="{i18n>CostCenter}" design="Bold"/>
+						<ta:template >
+							<Text text="{Kostl}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="6rem" >
+						<Label text="{i18n>Planningplant}" tooltip="{i18n>Planningplant}" design="Bold"/>
+						<ta:template >
+							<Text text="{Werks}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="7rem"  visible = "false">
+						<Label text="{i18n>Location}" tooltip="{i18n>Location}" design="Bold"/>
+						<ta:template >
+							<Text text="{Stort}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="7rem" visible = "false">
+						<Label text="{i18n>ProfitCenter}" tooltip="{i18n>ProfitCenter}" design="Bold"/>
+						<ta:template >
+							<Text text="{Prctr}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="8rem" >
+						<Label text="{i18n>CapatlizedOn}" tooltip="{i18n>CapatlizedOn}" design="Bold"/>
+						<ta:template >
+							<Text text="{ path: 'Aktiv', formatter: 'ZEMT_AM_PUR_APP.Format.Formatter.formatDate'}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="9rem" >
+						<Label text="{i18n>AcquistnValue}" tooltip="{i18n>AcquistnValue}" design="Bold"/>
+						<ta:template >
+							<Text text="{Answt}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="5rem" >
+						<Label text="{i18n>NBV}" tooltip="{i18n>NBV}" design="Bold"/>
+						<ta:template >
+							<Text text="{Netbv}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="4rem" >
+						<Label text="{i18n>Serial}" tooltip="{i18n>Serial}" design="Bold"/>
+						<ta:template >
+							<Text text="{Sernr}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="7.5rem" >
+						<Label text="{i18n>InventoryNo}" tooltip="{i18n>InventoryNo}" design="Bold"/>
+						<ta:template >
+							<Text text="{Invnr}"  />
+						</ta:template>
+					</ta:Column>
+					<ta:Column width="10rem" >
+						<Label text="{i18n>Deactdate}" tooltip="{i18n>Deactdate}" design="Bold"/>
+						<ta:template >
+							<Text text="{ path: 'Deakt', formatter: 'ZEMT_AM_PUR_APP.Format.Formatter.formatDate'}"  />
+						</ta:template>
+					</ta:Column>
+					
+		</ta:columns>
+		</ta:Table>
+		</Panel>
+		<!-- <endButton> <Button text="{i18n>btn_Search}" icon="sap-icon://search"&nbsp;
+			type="Accept" press="SearchFunctionalLocation" /> </endButton> -->
+	</Dialog>
+</core:FragmentDefinition>

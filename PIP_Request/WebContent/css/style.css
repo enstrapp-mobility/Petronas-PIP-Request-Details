@@ -1,0 +1,382 @@
+	@font-face {
+	font-style: Inter !important;
+}
+
+.stretchTabBar .sapMITBText {
+	text-align: center !important;
+}
+
+.longTextClass {
+	color: orange !important;
+}
+
+.NewLongTextClass {
+	color: blue !important;
+}
+.dialogToRight{
+    right: 0 !important;
+    left: auto !important;
+}
+.sapMLabel {
+	color: #3C3835 !important;
+}
+.wrapper .sapMDialogScrollCont{
+	text-align : center !important;
+}
+.sapMBarPH {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.sapUiRGLContainer>.sapUiFormTitle {
+	height: 1.75rem !important;
+}
+
+.sapUiTableCell .sapMLabel {
+	color: #3C3835 !important;
+}
+
+.sapMITBContent {
+	border-bottom: .0625rem solid #d9d9d9 !important;
+}
+
+.sapUiBody .filterIcon {
+	font-size: 1.1rem !important;
+	color: #00B1A9 !important;
+}
+.sapMITBFilterDefault {
+   color: #00B1A9 !important;
+    border-color: #00B1A9 !important;
+}
+.sapMITBSelected .sapMITBFilterDefault {
+    background: #00B1A9 !important;
+     background: #00B1A9 !important;
+}
+.sapMITBSelected .sapMITBContentArrow::after {
+    background: #00B1A9 !important;
+}
+.sapMITBFilter .sapMITBCount{
+	font-weight: bold !important;
+}
+.headerText {
+	font-weight: bold !important;
+	color: #ffffff !important;
+	font-size: 1.5rem !important;
+}
+.UserText{
+	font-weight: bold !important;
+	color: #ffffff !important;
+}
+/* for Background color */
+.sapMPageBgStandard {
+	background-color: #ffffff !important;
+}
+
+.homePageToolBar {
+	background: #00B1A9 !important;
+	padding: 10px !important;
+	height: 5rem !important;
+}
+
+.FragmentToolBar {
+	background: #00B1A9 !important;
+	padding: 10px !important;
+	color: #ffffff !important;
+}
+
+.FragmentToolBar .sapMLabel {
+	color: #ffffff !important;
+}
+
+.sapMBar {
+	display: block;
+	width: 100%;
+	position: relative;
+	height: 3rem;
+	line-height: 3rem;
+	color: #ffffff;
+	background-color: #00B1A9 !important;
+}
+
+/* .sapMBarLeft, .sapMIBar.sapMBar .sapMBarChild:first-child {
+	color: white;
+	margin: 0 0 0 1.5rem !important;
+} */
+
+/* .sapMIBar.sapMTB .sapMBarChild {
+	margin: 0 0 0 1.5rem !important;
+} */
+
+.sapMIBar.sapMHeader-CTX {
+	background-color: #39BBC5 !important;
+	color: white !important;
+	filter: none;
+	background-image: none;
+}
+
+.sapMIBar.sapMHeader-CTX {
+	background-color: #00B1A9 !important;
+	color: white !important;
+	filter: none;
+	background-image: none;
+}
+
+html.sap-desktop .sapContrast.sapMIBar.sapMFooter-CTX {
+	/*    background-color: rgba(44, 72, 202, 0.62)!important; */
+	background-color: #00B1A9 !important;
+	border-top: 1px solid #475b6d;
+}
+
+.sapUiFormResGridCont {
+	padding-bottom: 0 !important;
+	margin-top: -1rem !important;
+}
+
+.empty_text_cls {
+	margin-left: 10rem !important;
+	margin-top: 20rem !important;
+	font-size: xx-large !important;
+}
+
+.sapUiFormResGrid>div {
+	padding: 2rem 0.75rem;
+	box-sizing: border-box;
+}
+
+/* Change color for calendar type */
+.sapUiCalLegDayType01>.sapUiUnifiedLegendSquare>.sapUiUnifiedLegendSquareColor
+	{
+	background: green !important;
+}
+
+.sapUiCalItemType01>.sapUiCalItemText {
+	box-shadow: inset 0 -0.25rem 0 green !important;
+}
+
+.sapUiCalLegDayType02>.sapUiUnifiedLegendSquare>.sapUiUnifiedLegendSquareColor
+	{
+	background: yellow !important;
+}
+
+.sapUiCalItemType02>.sapUiCalItemText {
+	box-shadow: inset 0 -0.25rem 0 yellow !important;
+}
+
+.sapUiCalLegDayType03>.sapUiUnifiedLegendSquare>.sapUiUnifiedLegendSquareColor
+	{
+	background: red !important;
+}
+
+.sapUiCalItemType03>.sapUiCalItemText {
+	box-shadow: inset 0 -0.25rem 0 red !important;
+}
+
+.sapUiCalLegDayType04>.sapUiUnifiedLegendSquare>.sapUiUnifiedLegendSquareColor
+	{
+	background: pink !important;
+}
+
+.sapUiCalItemType04>.sapUiCalItemText {
+	box-shadow: inset 0 -0.25rem 0 pink !important;
+}
+
+.sapUiCalLegDayType05>.sapUiUnifiedLegendSquare>.sapUiUnifiedLegendSquareColor
+	{
+	background: #808080 !important;
+}
+
+.sapUiCalItemType05>.sapUiCalItemText {
+	box-shadow: inset 0 -0.25rem 0 #808080 !important;
+}
+
+.sapUiUnifiedLegendWorkingDay {
+	display: none !important;
+}
+
+.sapUiUnifiedLegendNonWorkingDay {
+	display: none !important;
+}
+/* Styles go here */
+.HBoxStyle {
+	margin-top: 5%;
+	margin-left: 5%;
+	margin-bottom: 5%;
+}
+
+.tableStyle .sapMListTblHeader {
+	cursor: pointer;
+}
+
+.columnLabelStyle {
+	cursor: pointer !important;
+}
+
+#__xmlview0--oPage-intHeader {
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+	background: linear-gradient(#fff, rgba(240, 240, 240, 0.9));
+	border-bottom: 1px solid #d4d4d4;
+	z-index: 1010;
+	transition: top .4s;
+}
+/* For Dialog Title icon*/
+.sapMDialog>header.sapMDialogTitle .sapMTitle {
+	color: #ffffff !important;
+}
+
+.sapMDialogSuccess>header.sapMDialogTitle .sapMDialogIcon.sapUiIcon {
+	color: #ffffff !important;
+}
+
+.sapMDialogInformation>header.sapMDialogTitle .sapMDialogIcon.sapUiIcon
+	{
+	color: #ffffff !important;
+}
+
+.sapMDialogError>header.sapMDialogTitle .sapMDialogIcon.sapUiIcon {
+	color: #ffffff !important;
+}
+
+.sapMITBFilter .sapMITBText {
+	line-height : 1rem !important;
+	font-size: 15px !important;
+	font-weight: bold !important;
+	width: 7rem !important;
+}
+
+#materialDescriptionId>.element.style {
+	background: red !important;
+}
+
+.narStatusIcon {
+	margin-top: 1rem !important;
+}
+.StatusIcon{
+	margin-top: 1rem !important;
+}
+.ResponseIconColorSuccess{
+	color: #ffffff !important;
+}
+.ResponseIconColorError{
+	color: red !important;
+}
+.AttachmentHeader{
+	color: #ffffff !important;
+}
+.wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background-color: #fff;
+    display: grid;
+    place-items: center;
+    transition: opacity 0.25s,
+    visibility 1s;
+}
+
+.fade {
+    opacity: 0;
+    visibility: hidden;
+}
+.roller {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border: 3px solid #fafafa;
+    margin: -4px 0 0 -4px;
+    border-radius: 50%;
+    transform-origin: 40px 40px;
+    animation: roller 3s cubic-bezier(0, 0, 0, 0) infinite;
+    border-color: #265599 #91c8f6 #ff8888 #abe2ab;
+}
+
+
+
+@keyframes roller {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.error {
+    position: relative;
+    animation: shake .1s linear;
+    animation-iteration-count: 3;
+}
+
+@keyframes shake {
+    0% { left: -5px; }
+    100% { right: -5px; }
+}
+.sapMITBHead{
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px !important;
+}
+.sapMSwt.sapMSwtOn:not(.sapMSwtAcceptReject) .sapMSwtHandle {
+	background: #00B1A9 !important;
+    border-color: #00B1A9 !important;
+}
+.sapMInputBaseContentWrapper {
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px !important;
+    border-radius: .25rem !important;
+}
+.sapMInputBaseInner:hover{
+	 border : 2px solid #0070f2 !important;
+}
+.sapMInputBaseInner:focus {
+	 outline : none !important;
+	 outline-width :0  !important;
+     border : 2px solid #0070f2 !important;
+     border-radius: .25rem !important;
+}
+.sapMInputBaseInner:focus {
+	 outline : none !important;
+	 outline-width :0  !important;
+     border : 2px solid #0070f2 !important;
+}
+.StandardListItemcss {
+	margin: 0.1rem 0.1 rem !important;
+   height: 2.75rem !important;
+    border-radius: 0.25rem !important;
+   
+}
+.sapMColumnHeader{
+	   
+}
+.sapMColumnHeader  {
+    font-weight: bolder !important;
+    font-size: .975rem !important;
+    color: #fff !important;
+}
+.sapMITBSelected .sapMITBFilterIcon::before {
+    text-shadow: none;
+     color: #fff !important;
+}
+.SearchTable.sapUiTable tr:hover {
+    cursor: pointer;
+}
+.BoldText{
+	 font-weight: bold !important;
+}
+.DatePickerDisable input{
+	cursor: pointer !important;
+}
+.Fill_red{
+	color: red !important;
+	margin-left: 1rem !important;
+}
+.Fill_green{
+	color: green !important;
+	margin-left: 1rem !important;
+}
+.Fill_yellow{
+	color: yellow !important;
+	margin-left: 1rem !important;
+}
+.Fill_orange{
+	color: orange !important;
+	margin-left: 1rem !important;
+}
+.
